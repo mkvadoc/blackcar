@@ -1,0 +1,17 @@
+a {
+	padding: 8px;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+a,
+.showHover {
+	cursor: pointer;
+}
+
+a:hover,
+a:active {
+	color: #fa923f;
+}
