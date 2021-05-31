@@ -22,7 +22,7 @@ export default function MainNavigation() {
                 <p className="far fa-envelope"> {email}</p>
             </div>
         </div>
-        <div className="DropDownMenu">Button</div>
+    
     </div >
     )
 }
