@@ -1,0 +1,70 @@
+.MainNavigation {
+	display: flex;
+	justify-content: space-between;
+	background: black;
+    height: 85px;
+	border-bottom: ridge 2px #d4af37;
+	color: #d4af37;
+	
+	.Logo {
+        padding: 0 0 0 20px;
+        height: 125px;
+	 }
+	 
+	.SocialContact {
+        display: flex;
+        flex-direction: column;
+		color: #d4af37;
+		padding: 0 30px;
+	}
+
+	.Social {
+		display: flex;
+		margin: 10px 0 0 0;
+	
+		a {
+			margin: 0px 10px 0px 0px;
+		}
+		
+		a:hover, a:active {
+			color: #fa923f;
+		}
+	}
+
+	.Contact {
+        display: flex;
+		flex-direction: column;
+        .fas,
+		.far {
+			margin: 0;
+        }
+        p {
+			margin: 0px 10px 0px 0px;
+		}
+		
+		p:hover, p:active {
+			color: #fa923f;
+		}
+
+    }
+    
+	@media (max-width: 769px) {
+		.Contact {
+		font-size: 13px;
+		}
+        
+        .Navigation {
+            display: none;
+        }
+
+        .SocialContact {
+            display: none;
+        }
+	}
+   
+    @media (min-width: 770px) {
+        .DrawerToggleButton {
+               display: none;
+           }  
+        }
+}
