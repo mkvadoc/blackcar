@@ -1,65 +1,32 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const graphqlHttp = require('express-graphql');
-const { buildSchema, createSourceEventStream } = require('graphql');
-const { maxHeaderSize } = require('http');
+const mongoose = require('mongoose');
+
+const graphQlSchema = require('./graphql/schema/index');
+const graphQlResolvers = require('./graphql/resolvers/index');
 
 const app = express();
 
-const cars = [];
-
 app.use(bodyParser.json());
+
 
 app.use(
     '/graphql',
     graphqlHttp.graphqlHTTP({
-        schema: buildSchema(`
-        type Car {
-            _id: ID!
-            title: String!
-            description: String!
-            price: Float!
-            date: String!
-        }
-        
-        input CarInput {
-            title: String!
-            description: String!
-            price: Float!
-            date: String!
-        }
-
-        type RootQuery {
-            cars: [Car!]!
-        }
-
-        type RootMutation{
-            createCar(carInput: CarInput): Car
-        }
-
-        schema{
-            query: RootQuery
-            mutation: RootMutation
-        }
-    `),
-        rootValue: {
-            cars: (args) => {
-                return cars;
-            },
-            createCar: (args) => {
-                const car = {
-                    _id: Math.random().toString(),
-                    title: args.carInput.title,
-                    description: args.carInput.description,
-                    price: +args.carInput.price,
-                    date: args.carInput.date
-                };
-                cars.push(cars);
-                return car
-            }
-        },
+        schema: graphQlSchema,
+        rootValue: graphQlResolvers,
         graphiql: true
     })
 );
-
-app.listen(3000);
+mongoose
+    .connect(`
+mongodb+srv://${process.env.MONGO_USER}:${
+        process.env.MONGO_PASSWORD
+        }@cluster0.xluyi.mongodb.net/${process.env.MONGO_DB}
+    ?retryWrites=true&w=majority`)
+    .then(() => {
+        app.listen(3000);
+    }).catch(err => {
+        console.log(err);
+    });
