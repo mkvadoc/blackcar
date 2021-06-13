@@ -1,4 +1,5 @@
 const Car = require('../../models/car');
+const User = require('../../models/user');
 
 const { transformCar } = require('./merge');
 
@@ -13,19 +14,22 @@ module.exports = {
             throw err;
         }
     },
-    createCar: async args => {
+    createCar: async (args, req) => {
+        if (!req.isAuth) {
+            throw new Error('Unauthenticated!');
+        }
         const car = new Car({
             title: args.carInput.title,
             description: args.carInput.description,
             price: +args.carInput.price,
             date: new Date(args.carInput.date),
-            creator: '60c369901660492a2cd55bd1'
+            creator: req.userId
         });
         let createdCar;
         try {
             const result = await car.save();
             createdCar = transformCar(result);
-            const creator = await User.findById('60c369901660492a2cd55bd1');
+            const creator = await User.findById(req.userId);
 
             if (!creator) {
                 throw new Error('User not found.');

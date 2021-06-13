@@ -25,6 +25,12 @@ type User {
     createdCars: [Car!]
 }
 
+type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Int!
+  }
+
 input CarInput {
     title: String!
     description: String!
@@ -40,6 +46,7 @@ input UserInput {
 type RootQuery {
     cars: [Car!]!
     bookings: [Booking!]!
+    login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation{
@@ -53,5 +60,4 @@ schema{
     query: RootQuery
     mutation: RootMutation
 }
-
 `);
