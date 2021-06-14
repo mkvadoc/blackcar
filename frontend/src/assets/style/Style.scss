@@ -1,4 +1,5 @@
 @import './componets/allComponents';
+@import './pages/allPages';
 
 * {
 	box-sizing: border-box;
@@ -7,9 +8,29 @@
 body {
 	height: 100vh;
 	margin: unset;
+	background-color: grey;
 
-	a,	p,	h1, h2,	h3
+	a,	p,	h1, h2,	h3 , label
 		 {
 		color: #d4af37;
 	}
+
+
+	button {
+		background: black;
+		font: inherit;
+		border: 1px solid #d4af37;
+		border-radius: 5px;
+		padding: 0.25rem 1rem;
+		margin-right: 1rem;
+		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+		color: #d4af37;;
+		cursor: pointer;
+	  }
+
+	button:hover,
+  	button:active {
+      background: rgb(51, 49, 49);
+      border-color: #d48b37;
+  }
 }

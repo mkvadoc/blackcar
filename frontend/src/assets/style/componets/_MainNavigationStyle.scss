@@ -9,8 +9,27 @@
 	.Logo {
         padding: 0 0 0 20px;
         height: 125px;
-	 }
+	}
 	 
+	.Navigation {
+		margin-left: 1.5rem;
+	}
+	  
+	.Navigation ul {
+		display: flex;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	  
+	.Navigation li {
+		margin: 0 1rem;
+	}
+	  
+	.Navigation a {
+		text-decoration: none;
+	}
+	
 	.SocialContact {
         display: flex;
         flex-direction: column;

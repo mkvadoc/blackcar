@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-
 class App extends Component {
 	drawerToggleClickerHandler = () => {
 		this.setState((prevState) => {
