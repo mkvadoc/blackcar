@@ -18,7 +18,7 @@ class LoginPage extends Component {
   };
 
   submitHandler = car => {
-    car.prcarDefault();
+    car.preventDefault();
     const email = this.emailEl.current.value;
     const password = this.passwordEl.current.value;
 
