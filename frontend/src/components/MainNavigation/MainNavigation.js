@@ -3,23 +3,35 @@ import logo from '../../assets/images/logo.png';
 import { phoneNumber, email, fb_link, insta_link } from '../../constants/common';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import { NavLink } from 'react-router-dom';
+import AuthContext from '../../context/auth-context';
 
-export default function MainNavigation(props) {
-    return (
-    <header className="MainNavigation">
+const MainNavigation = props => (
+    <AuthContext.Consumer>
+        { context => {
+            return (
+                <header className="MainNavigation">
         <img className="Logo" src={logo} alt="/" />
         
         <div className="Navigation"> 
         <ul>
-            <li>
+              {!context.token && (
+              <li>
                 <NavLink to="/login">Login</NavLink>
             </li>
+            )}
             <li>
                 <NavLink to="/cars">Cars</NavLink>
             </li>
+            {context.token && (
+                <React.Fragment>
             <li>
                 <NavLink to="/booking">Bookings</NavLink>
             </li>
+            <li>
+                <button onClick={context.logout}>Logout</button>
+            </li>
+            </React.Fragment>
+            )}
         </ul>
        </div>
                 
@@ -38,5 +50,12 @@ export default function MainNavigation(props) {
 					<DrawerToggleButton click={props.drawerClickHandler} />
 				</div>
     </header >
-    )
-}
+            )
+        }}
+    
+    
+    
+    </AuthContext.Consumer>
+);
+
+export default MainNavigation;

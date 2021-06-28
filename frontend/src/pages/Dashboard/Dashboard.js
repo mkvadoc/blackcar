@@ -1,42 +1,58 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, Component } from 'react';
 import MainNavigation from '../../components/MainNavigation/MainNavigation'
-import {BrowserRouter, Route, Switch } from 'react-router-dom';
-import About from '../About/About';
+import {BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Login from '../Login/Login';
 import SideDrawer from '../../components/SideDrawer/SideDrawer';
 import Backdrop from '../../components/Backdrop/Backdrop';
 import CarsPage from '../Cars/Cars';
 import BookingsPage from '../Booking/Booking';
+import AuthContext from '../../context/auth-context';
 
-export default function Dashboard() {
-  
-    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
-	const drawerToggleClickerHandler = useCallback(() => setSideDrawerOpen(!sideDrawerOpen), [sideDrawerOpen])
-	const backdropClickHandler = useCallback(() => setSideDrawerOpen(false), [])
+class Dashboard extends Component {
+state = {
+    token: null,
+    userId: null,
+};
 
-  
+login = (token, userId, tokenExpiration) => {
+    this.setState({ token: token, userId: userId });
+};
+
+logout = () => {
+    this.setState({ token: null, userId: null });
+};
+
+render () {
     return (
         <BrowserRouter>
             <div className="Dashboard">
-                <MainNavigation drawerClickHandler={drawerToggleClickerHandler}/>
-                <div className="content-wrap">
-                    <SideDrawer show={sideDrawerOpen} />
-					{sideDrawerOpen && <Backdrop click={backdropClickHandler} />}
-                    </div>
-                <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/about" component={About} />
-                <Route path="/login" component={Login} />
-                <Route path="/cars" component={CarsPage} />
-                <Route path="/booking" component={BookingsPage} />
-                </Switch>
+                <AuthContext.Provider 
+                value={{
+                    token:this.state.token, 
+                    userId: this.state.userId,
+                    login: this.login,
+                    logout: this.logout
+                     }}>
+                <MainNavigation />
+                   <main className="main-content">
+                        <Switch>
+                            {this.state.token && <Redirect from="/" to="/cars" exact />}
+                            {this.state.token && <Redirect from="/login" to="/cars" exact />}
+                            {!this.state.token && (
+                                <Route path="/login" component={Login} />
+                            )}
+                            <Route path="/cars" component={CarsPage} />
+                            {this.state.token && (
+                            <Route path="/booking" component={BookingsPage} />
+                            )}
+                            {!this.state.token && <Redirect to="/login" exact />}
+                        </Switch>
+                   </main>
+                </AuthContext.Provider>
             </div>    
         </BrowserRouter>
-    )
+    );
+    };
 }
 
-const Home = ()=> (
-<div className="HomePage">
- <h1>Home page</h1>
-</div>
-);
+export default Dashboard;
