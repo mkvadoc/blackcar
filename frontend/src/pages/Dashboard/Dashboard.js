@@ -1,12 +1,10 @@
-import React, { useState, useCallback, Component } from 'react';
-import MainNavigation from '../../components/MainNavigation/MainNavigation'
+import React, { Component } from 'react';
+import MainNavigation from 'components/MainNavigation/MainNavigation'
 import {BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import Login from '../Login/Login';
-import SideDrawer from '../../components/SideDrawer/SideDrawer';
-import Backdrop from '../../components/Backdrop/Backdrop';
-import CarsPage from '../Cars/Cars';
-import BookingsPage from '../Booking/Booking';
-import AuthContext from '../../context/auth-context';
+import Login from 'pages/Login/Login';
+import CarsPage from 'pages/Cars/Cars';
+import BookingsPage from 'pages/Booking/Booking';
+import AuthContext from 'context/auth-context';
 
 class Dashboard extends Component {
 state = {

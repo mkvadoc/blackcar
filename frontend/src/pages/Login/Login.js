@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AuthContext from '../../context/auth-context';
+import AuthContext from 'context/auth-context';
 
 class LoginPage extends Component {
   state = {
@@ -7,7 +7,7 @@ class LoginPage extends Component {
   };
 
   static contextType = AuthContext;
-  
+
   constructor(props) {
     super(props);
     this.emailEl = React.createRef();

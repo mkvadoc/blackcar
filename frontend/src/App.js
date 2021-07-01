@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Dashboard from 'pages/Dashboard/Dashboard';
 
 class App extends Component {
-		
+
 	drawerToggleClickerHandler = () => {
 		this.setState((prevState) => {
 			return { sideDrawerOpen: !prevState.sideDrawerOpen };
